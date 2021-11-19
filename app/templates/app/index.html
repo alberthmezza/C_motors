@@ -1,0 +1,186 @@
+{% extends 'app/base.html' %}
+
+<!-- Cargar carpeta static -->
+{% load static %}
+
+<!-- Inicio  del CSS  -->
+{% block css %}
+
+<!-- Fin del css -->
+{% endblock %}
+
+
+
+<!-- Bloque del contenido -->
+{% block contenido %}
+
+<div class="app-title">
+    <div>
+        <h1><i class="fa fa-user"></i> Ventas</h1>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Regustar</a></li>
+                <li class="nav-item"><a class="nav-link" href="#profile">Consultar</a></li>
+
+            </ul>
+            <br>
+            <div class="tile-body">
+                <form class="row">
+
+                    <!-- Espacio de trabajo -->
+                    <div class="form-group col-md-5">
+                        <label class="control-label">Vendedor</label>
+                        <input class="form-control" type="text" value="{{ user.username }}" name="vendedor" disabled>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label for="exampleSelect1">Cliente</label>
+                        <select class="form-control" id="Cliente" name="cliente" placeholder="Cliente">
+                            <optgroup>
+                              <option>Seleccionar Cliente</option>
+                              <option>1</option>
+                              <option>Vadodara</option>
+                              <option>Rajkot</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="exampleSelect1">Registrar</label>
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-fw fa-lg fa fa-plus-circle"></i> Cliente</button>
+                    </div>
+                    <div class="tile-footer  col-md-12">
+                        <div class="row ">
+                            <div class="col-md-8 col-md-offset-3">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tile-footer"></div>
+                    <div class="col-md-6">
+                        <label for="exampleSelect1">Producto*</label>
+                        <select class="form-control" id="Producto">
+                            <optgroup>
+                              <option>Seleccionar producto</option>
+                              <option>Proudcto 1</option>
+                              <option>Proudcto 2</option>
+                              <option>Proudcto 3</option>
+                            </optgroup>
+                        </select>
+                        <br>
+                        <br>
+                        <label class="control-label">Cantidad*</label>
+                        <input class="form-control" type="number" placeholder="Cantidad" id="cantidadProducto" required>
+                        <br>
+                        <button class="btn btn-info" type="button" onclick="agregar_producto()"><i class="fa fa-fw fa-lg fa fa-plus-circle"></i>Agregar</button>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-bordered" id="tbl_productos">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Opcion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Fin espacio de trabajo -->
+                    <div class="tile-footer col-md-12 ">
+
+                        <div class=" col-md-12 d-flex justify-content-end ">
+                            <a class="btn btn-secondary" href="#"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancelar</a>&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-primary" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Registrar</button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Modals -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Registrar cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <form class="row">
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Documento*</label>
+                        <input class="form-control" type="number" placeholder="Documento" name="Documento">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Nombre*</label>
+                        <input class="form-control" type="text" placeholder="Nombre" name="Nombre">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Apellido*</label>
+                        <input class="form-control" type="text" placeholder="Apellido" name="Apellido">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Telefono*</label>
+                        <input class="form-control" type="number" placeholder="Telefono" name="Telefono">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Direccion*</label>
+                        <input class="form-control" type="text" placeholder="Direccion" name="Direccion">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Registrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Findel bloque del contenido  -->
+{% endblock %}
+
+<!-- Inicio  del JS  -->
+{% block js %}
+<script type="text/javascript" src="{% static 'app/js/plugins/select2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'app/js/plugins/bootstrap-notify.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'app/js/plugins/sweetalert.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'app/js/plugins/select2.min.js' %}"></script>
+
+<!-- Estos son los select -->
+<script type="text/javascript">
+    $('#Cliente').select2();
+</script>
+
+{% if messages %} {% for m in messages %}
+<script type="text/javascript">
+    // usurio o contrasea inconrrectos
+    $.notify({
+        title: " ",
+        message: "{{ m }} {{ user.username }}",
+        icon: 'fa fa-check-circle-o'
+    }, {
+        type: "info"
+    });
+</script>
+{% endfor %} {% endif %}
+
+<!-- Fin del JS -->
+{% endblock %}

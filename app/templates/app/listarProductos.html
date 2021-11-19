@@ -1,0 +1,121 @@
+{% extends 'app/base.html' %}
+
+<!-- Cargar carpeta static -->
+{% load static %}
+<!-- Inicio  del CSS  -->
+{% block css %}
+
+<!-- Fin del CSS -->
+{% endblock %}
+<!-- Bloque del contenido -->
+{% block contenido %}
+
+<div class="app-title">
+    <div>
+        <h1><i class="fa fa-cube"></i> Listar productos</h1>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a class="nav-link" href="{% url 'registrarProducto'%}">Registrar</a></li>
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#">Consultar</a></li>
+            </ul>
+            <br>
+
+            <!-- Espacio de trabajo -->
+
+            {% load humanize %}
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tile">
+                        <div class="tile-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered table-responsive" id="Tablelistarproductos">
+                                    <thead>
+                                        <tr>
+                                            <th>Codigo</th>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>Imagen</th>
+                                            <th>V.ingreso</th>
+                                            <th>V.egreso</th>
+                                            <th>V.mayoreo</th>
+                                            <th>Stock</th>
+                                            <th>Estado</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for p in productos %}
+                                        <tr>
+                                            <td>{{ p.codigo }}</td>
+                                            <td>{{ p.nombre | capfirst }}</td>
+                                            <td>{{ p.descripcion }}</td>
+                                            {% if p.imagen %}
+                                            <td>
+                                                <img src="{{ p.imagen.url }}" alt="imagen producto" style="height:30px; width:60px;"></td>
+                                            {% endif %}
+                                            <td>${{ p.valor_ingreso | intcomma }}</td>
+                                            <td>${{ p.valor_egreso | intcomma }}</td>
+                                            <td>${{ p.valor_mayoreo | intcomma }}</td>
+                                            <td>{{ p.stock }}</td>
+                                            <td>
+                                                {% if p.estado %}
+                                                <div class="toggle-flip">
+                                                    <label>
+                                                      <input type="checkbox"><span class="flip-indecator" data-toggle-on="Activo" data-toggle-off="Inactivo"></span>
+                                                    </label>
+                                                </div> {% else %}
+                                                <div class="toggle-flip">
+                                                    <label>
+                                                      <input type="checkbox"><span class="flip-indecator" data-toggle-on="Activo" data-toggle-off="Inactivo"></span>
+                                                    </label>
+                                                </div> {% endif %}
+                                            </td>
+                                        </tr>
+
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- Fin espacio de trabajo -->
+
+        </div>
+    </div>
+</div>
+
+<!-- Findel bloque del contenido  -->
+{% endblock %}
+
+<!-- Inicio bloque JS -->
+{% block js %}
+<script type="text/javascript" src="{% static 'app/js/plugins/select2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'app/js/plugins/sweetalert.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'app/js/plugins/jquery.dataTables.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'app/js/plugins/dataTables.bootstrap.min.js' %}"></script>
+
+<!-- DataTable -->
+<script type="text/javascript">
+    $('#Tablelistarproductos').DataTable();
+</script>
+
+<!-- Estos son los select -->
+<script type="text/javascript">
+    $('#proveedorProducto').select2();
+</script>
+
+<!-- Fin del JS -->
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'app/base.html' %}
+
+<!-- Cargar carpeta static -->
+{% load static %}
+
+
+<!-- Inicio  del CSS  -->
+{% block css %}
+
+<!-- Fin del CSS -->
+{% endblock %}
+<!-- Bloque del contenido -->
+{% block contenido %}
+
+<div class="app-title">
+    <div>
+        <h1><i class="fa fa-cube"></i> Registrar Contacto </h1>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#">Registrar</a></li>
+                <li class="nav-item"><a class="nav-link" href="">Consultar</a></li>
+            </ul>
+            <br>
+
+            <!-- Espacio de trabajo -->
+
+            <div class="tile-body">
+                <form class="row" action="{% url 'Contacto_registar' %}" method="POST">
+                    {% csrf_token %}
+
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Nombre*</label>
+                        <input class="form-control" type="text" placeholder="Nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Correo*</label>
+                        <input class="form-control" type="Email" placeholder="Correo" name="correo" required>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Tipo consulta*</label>
+                        <input class="form-control" type="text" placeholder="Tipo Consulta" name="tipo_consulta" required>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Mensaje*</label>
+                        <input class="form-control" type="text" placeholder="Mensajes" name="mensaje" required>
+                    </div>
+
+                    <input class="form-control" type="hidden" name="avisos" value="1">
+
+
+                    <div class=" col-md-12">
+                        <button class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Registrar</button> &nbsp;&nbsp;&nbsp;
+
+                    </div>
+
+
+                </form>
+            </div>
+
+            <!-- Fin espacio de trabajo -->
+
+        </div>
+    </div>
+</div>
+
+<!-- Findel bloque del contenido  -->
+{% endblock %} {% block js %}
+<script type="text/javascript" src="{% static 'app/js/plugins/select2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'app/js/plugins/sweetalert.min.js' %}"></script>
+
+{% if messages %} {% for m in messages %}
+<script type="text/javascript">
+    if ("{{m}}" == "Contacto guardado") {
+        swal("¡Éxito!", "{{m}}", "success");
+    } else {
+        swal("Error", "{{m}}", "error");
+    }
+</script>
+{% endfor %} {% endif %}
+
+<!-- Estos son los select -->
+<script type="text/javascript">
+    $('#proveedorProducto').select2();
+</script>
+
+<!-- Fin del JS -->
+{% endblock %}

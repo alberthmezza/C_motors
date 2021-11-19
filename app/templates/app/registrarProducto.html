@@ -1,0 +1,172 @@
+{% extends 'app/base.html' %}
+
+<!-- Cargar carpeta static -->
+{% load static %}
+
+
+<!-- Inicio  del CSS  -->
+{% block css %}
+
+<!-- Fin del CSS -->
+{% endblock %}
+<!-- Bloque del contenido -->
+{% block contenido %}
+
+<div class="app-title">
+    <div>
+        <h1><i class="fa fa-cube"></i> Registrar producto</h1>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#">Registrar</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'listarProductos'%}">Consultar</a></li>
+            </ul>
+            <br>
+
+            <!-- Espacio de trabajo -->
+
+            <div class="tile-body">
+                <form class="row" action="{% url 'Producto_registrar' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Codigo*</label>
+                        <input class="form-control" type="text" placeholder="Codigo producto" name="codigo" required>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Nombre*</label>
+                        <input class="form-control" type="text" placeholder="Nombre producto" name="nombre" required>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="exampleTextarea">Descripción*</label>
+                        <textarea class="form-control" id="descripcionProducto" rows="2" placeholder="Descripción del producto" name="descripcion" required></textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleSelect1">Proveedor*</label>
+                        <select class="form-control" id="proveedorProducto" name="proveedor_idproveedor" placeholder="Seleccionar proveedor" required>
+                            <optgroup>
+                              <option>Seleccionar proveedor</option>
+                              <option>1</option>
+                              <option>Vadodara</option>
+                              <option>Rajkot</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleSelect1">Marca*</label>
+                        <select class="form-control" id="marcaProducto" name="marca_idmarca" placeholder="Seleccionar marca" required>
+                          <optgroup>
+                            <option>Selecionar marca</option>
+                            <option>1</option>
+                            <option>Vadodara</option>
+                            <option>Kapadwanj</option>
+                          </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleSelect1">Categoria*</label>
+                        <select class="form-control" id="categoriaProducto" name="categoria_idcategoria" placeholder="Seleccionar categoria" required>
+                          <optgroup>
+                            <option>Seleccionar categoria</option>
+                            <option>1</option>
+                            <option>Vadodara</option>
+                            <option>Kapadwanj</option>
+                          </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Imagen</label>
+                        <input class="form-control" type="file" name="imagen">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="exampleSelect1">Valor ingreso*</label>
+                        <label class="sr-only" for="exampleInputAmount">Valor (in dollars)</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                            <input class="form-control" id="exampleInputAmount" name="valor_ingreso" type="text" placeholder="Valor" required>
+                            <div class="input-group-append"><span class="input-group-text">.00</span></div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">% Ganancia</label>
+                        <input class="form-control" type="text" name="gananciaProducto" disabled>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="exampleSelect1">Valor egreso*</label>
+                        <label class="sr-only" for="exampleInputAmount">Valor (in dollars)</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                            <input class="form-control" id="exampleInputAmount" name="valor_egreso" type="text" placeholder="Valor" required>
+                            <div class="input-group-append"><span class="input-group-text">.00</span></div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="exampleSelect1">Valor mayoreo*</label>
+                        <label class="sr-only" for="exampleInputAmount">Valor (in dollars)</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                            <input class="form-control" id="exampleInputAmount" name="valor_mayoreo" type="text" placeholder="Valor" required>
+                            <div class="input-group-append"><span class="input-group-text">.00</span></div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">Cantidad*</label>
+                        <input class="form-control" type="number" placeholder="Codigo producto" name="stock" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">Cantidad minima*</label>
+                        <input class="form-control" type="number" placeholder="Codigo producto" name="stockmin" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">Cantidad maxima*</label>
+                        <input class="form-control" type="number" placeholder="Codigo producto" name="stockmax" required>
+                    </div>
+                    <input class="form-control" type="hidden" name="estado" value="1">
+                    <hr>
+                    <div class=" col-md-12 d-flex justify-content-end">
+                        <a class="btn btn-secondary" href="#"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancelar</a>&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Registrar</button> &nbsp;&nbsp;&nbsp;
+
+                    </div>
+
+                </form>
+            </div>
+
+
+
+            <!-- Fin espacio de trabajo -->
+
+        </div>
+    </div>
+</div>
+
+<!-- Findel bloque del contenido  -->
+{% endblock %}
+
+<!-- bloque de los JS  -->
+{% block js %}
+<script type="text/javascript" src="{% static 'app/js/plugins/select2.min.js' %}"></script>
+
+
+{% if messages %} {% for m in messages %}
+<script type="text/javascript">
+    if ("{{m}}" == "Producto guardado") {
+        swal("¡Éxito!", "{{m}}", "success");
+    } else {
+        swal("Error", "{{m}}", "error");
+    }
+</script>
+{% endfor %} {% endif %}
+
+<!-- Estos son los select -->
+<script type="text/javascript">
+    $('#proveedorProducto').select2();
+    $('#categoriaProducto').select2();
+    $('#marcaProducto').select2();
+</script>
+
+<!-- Fin del JS -->
+{% endblock %}
